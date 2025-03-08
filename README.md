@@ -8,6 +8,12 @@ A Flask-based web application for playing the "Guess 2/3 of the Average" game.
 - Developers can view the final results by entering a password.
 - Visualized guess distribution using matplotlib.
 
+## About the Project
+
+This website was created as part of a presentation on **Game Theory**. The goal was to increase interaction with students during the presentation and make the session more engaging. To encourage participation, I added a **prize for the winner**, motivating everyone to join the game and guess 2/3 of the average.
+
+The project is built using **Flask** for the backend, **SQLite** for storing guesses, and **matplotlib** for visualizing the results. It’s a fun and interactive way to explore game theory concepts!
+
 ## Installation
 
 1. Clone the repository:
@@ -54,4 +60,4 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
