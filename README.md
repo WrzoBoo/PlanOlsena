@@ -1,6 +1,6 @@
 # Guess 2/3 of the Average Game
 
-A Flask-based web application for playing the "Guess 2/3 of the Average" game.
+A Flask-based web application for playing the 'Guess 2/3 of the Average' game, a classic example of game theory. Players submit their guesses, and the app calculates the winner based on the closest guess to two-thirds of the average.
 
 ## Features
 - Users can submit their guesses (between 1 and 100).
