@@ -161,6 +161,7 @@ def show_results():
 @app.route('/full')
 def show_full():
     with sqlite3.connect(DATABASE) as conn:
+        conn.row_factory = sqlite3.Row
         guesses = conn.execute('SELECT * FROM guesses ORDER BY guess DESC').fetchall()
     return render_template('full_result.html', guesses=guesses)
 
