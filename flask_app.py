@@ -68,7 +68,7 @@ def submit():
     # Validate the guess
     try:
         guess = int(guess)
-        if guess < 1 or guess > 100:
+        if guess < 0 or guess > 100:
             logging.warning(f"Invalid guess range: {guess}")
             return "Please enter a number between 1 and 100.", 400
     except ValueError:
