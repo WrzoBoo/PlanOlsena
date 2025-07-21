@@ -31,7 +31,8 @@ def init_db():
             CREATE TABLE IF NOT EXISTS guesses (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                guess INTEGER NOT NULL
+                guess INTEGER NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         conn.commit()
