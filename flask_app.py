@@ -158,6 +158,11 @@ def show_results():
                           average=average,
                           two_thirds_avg=two_thirds_avg,
                           winner=winner)
+@app.route('/full')
+def show_full():
+    with sqlite3.connect(DATABASE) as conn:
+        guesses = conn.execute('SELECT * FROM guesses ORDER BY guess DESC').fetchall()
+    return render_template('full_result.html', guesses=guesses)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
