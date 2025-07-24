@@ -58,7 +58,13 @@
                 <img src="{{ url_for('static', filename='images/logo_w.png') }}" alt="Logo" class="logo">
             </div>
             <div class="card-body">
-                <p class="text-center">Witaj w walce o przetrwanie</p>
+                <p class="text-center">Każdy z graczy wprowadza liczbę między 0 a 100</p>
+				<p class="text-center">Gdy każdy z graczy wprowadzi swoją odpowiedź liczona jest średnia wszystkich odpowiedzi</p>
+				<p class="text-center">Rundę wygrywa gracz, który poda odpowiedź będącą najbliżej dwóch trzecich tej średniej</p>
+				<p class="text-center">Zwycięzca otrzymuje 3 tarcze, które musi przekazać trzem różnym graczom</p>
+				<p class="text-center">Tarcza jednorazowo chroni przed utratą życia</p>
+				<p class="text-center">Jeśli zwycięzców jest wiele, dzielą oni tarcze między sobą po równo</p>
+				<p class="text-center">Ułamki tarczy nie działają</p>
                 <p class="text-center text-muted">Liczba odpowiedzi: <strong>{{ count }}</strong></p>
 
                 <!-- Form -->
