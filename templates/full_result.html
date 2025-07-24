@@ -63,16 +63,16 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Średnia odpowiedź</h5>
-                        <p class="card-text">{{ average | round(2) }}</p>
+                        <h2 class="card-title">Średnia odpowiedź:</h2>
+                        <h2 class="card-text">{{ average | round(2) }}</h2>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Dwie trzecie odpowiedzi</h5>
-                        <p class="card-text">{{ two_thirds_avg | round(2) }}</p>
+                        <h2 class="card-title">Dwie trzecie odpowiedzi:</h2>
+                        <h2 class="card-text">{{ two_thirds_avg | round(2) }}</h2>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,6 @@
             <h2>Zwycięzca</h2>
             <p><strong>Imię:</strong> {{ winner[0] }}</p>
             <p><strong>Odpowiedź:</strong> {{ winner[1] }}</p>
-            <p><strong>Two-Thirds of the Average:</strong> {{ two_thirds_avg | round(2) }}</p>
             <p class="text-success">Gratulacje!</p>
         </div>
     </div>	
