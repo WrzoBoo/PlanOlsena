@@ -20,6 +20,16 @@
             text-align: center;
             margin-top: 2rem;
         }
+		.winner-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .winner-card h2 {
+            color: #28a745;
+        }
     </style>
 </head>
 <body>
@@ -44,5 +54,40 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="container">
+        <h1 class="text-center mb-4">Wyniki</h1>
+
+       <!-- Statistics -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Średnia odpowiedź</h5>
+                        <p class="card-text">{{ average | round(2) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dwie trzecie odpowiedzi</h5>
+                        <p class="card-text">{{ two_thirds_avg | round(2) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Winner -->
+        <div class="winner-card mt-4">
+            <h2>Zwycięzca</h2>
+            <p><strong>Imię:</strong> {{ winner[0] }}</p>
+            <p><strong>Odpowiedź:</strong> {{ winner[1] }}</p>
+            <p><strong>Two-Thirds of the Average:</strong> {{ two_thirds_avg | round(2) }}</p>
+            <p class="text-success">Gratulacje!</p>
+        </div>
+    </div>	
+	
+	
 </body>
 </html>

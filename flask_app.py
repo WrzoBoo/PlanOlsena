@@ -70,7 +70,7 @@ def submit():
         guess = int(guess)
         if guess < 0 or guess > 100:
             logging.warning(f"Invalid guess range: {guess}")
-            return "Please enter a number between 1 and 100.", 400
+            return "Wprowadź liczbę od 0 do 100.", 400
     except ValueError:
         logging.warning(f"Invalid guess input: {guess}")
         return "Please enter a valid number.", 400
@@ -96,9 +96,9 @@ def final_result():
         password = request.form.get('password')
         if password == DEVELOPER_PASSWORD:
             session['authenticated'] = True
-            return redirect(url_for('show_results'))
+            return redirect(url_for('show_full'))
         else:
-            return "Only developers have access to this section. Incorrect password.", 403
+            return "Złe hasło.", 403
     return render_template('final_result.html')
 
 @app.route('/results')
@@ -160,10 +160,35 @@ def show_results():
                           winner=winner)
 @app.route('/full')
 def show_full():
+
+    if not session.get('authenticated'):
+        return "Only developers have access to this section.", 403
+        
     with sqlite3.connect(DATABASE) as conn:
         conn.row_factory = sqlite3.Row
         guesses = conn.execute('SELECT * FROM guesses ORDER BY guess DESC').fetchall()
-    return render_template('full_result.html', guesses=guesses)
+
+
+    with sqlite3.connect(DATABASE) as conn:
+        guesses_avg = [row[0] for row in conn.execute('SELECT guess FROM guesses').fetchall()]
+
+    average = sum(guesses_avg) / len(guesses_avg)
+    two_thirds_avg = (2 / 3) * average        
+
+    
+    with sqlite3.connect(DATABASE) as conn:
+        winner = conn.execute('''
+            SELECT name, guess FROM guesses
+            ORDER BY ABS(guess - ?) LIMIT 1
+        ''', (two_thirds_avg,)).fetchone()    
+    
+    
+    return render_template('full_result.html', 
+                            guesses=guesses,
+                            average=average,
+                            two_thirds_avg=two_thirds_avg,
+                            winner=winner)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
