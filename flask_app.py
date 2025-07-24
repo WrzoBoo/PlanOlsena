@@ -158,6 +158,7 @@ def show_results():
                           average=average,
                           two_thirds_avg=two_thirds_avg,
                           winner=winner)
+
 @app.route('/full')
 def show_full():
 
