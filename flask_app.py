@@ -189,6 +189,23 @@ def show_full():
                             two_thirds_avg=two_thirds_avg,
                             winner=winner)
 
+@app.route('/delete', methods=['POST'])
+def delete():
+    entry_id = request.form.get('entry_id')
+    if entry_id:
+        conn = sqlite3.connect(DATABASE)
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM guesses WHERE id = ?", (entry_id,))
+        conn.commit()
+        conn.close()
+    
+    # Redirect back to the index (same page)
+    return redirect(url_for('show_full'))
+
+@app.route('/reset-db', methods=['POST'])
+def reset_db_route():
+    reset_db()  # Call your existing internal reset function here
+    return redirect(url_for('show_full'))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
