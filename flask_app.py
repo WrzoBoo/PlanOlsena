@@ -198,6 +198,20 @@ def show_full():
                             two_thirds_avg=two_thirds_avg,
                             winner=winner)
 
+@app.route('/cipher_full')
+def cipher_full():
+
+    if not session.get('authenticated'):
+        return "Only developers have access to this section.", 403
+        
+    with sqlite3.connect(DATABASE) as conn:
+        conn.row_factory = sqlite3.Row
+        cipher = conn.execute('SELECT * FROM cipher ORDER BY guess DESC').fetchall()
+  
+    
+    return render_template('cipher_full.html', 
+                            cipher=cipher)
+
 @app.route('/delete', methods=['POST'])
 def delete():
     entry_id = request.form.get('entry_id')
@@ -220,7 +234,6 @@ def reset_db_route():
 def cipher():
     return render_template('cipher.html')
 
-
 @app.route('/cipher_submit', methods=['POST'])
 def cipher_submit():
     """
@@ -237,7 +250,19 @@ def cipher_submit():
 
     return render_template('cipher_thank_you.html')
 
-
+@app.route('/cipher_result', methods=['GET', 'POST'])
+def cipher_result():
+    """
+    Handle developer access to the final results page.
+    """
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == DEVELOPER_PASSWORD:
+            session['authenticated'] = True
+            return redirect(url_for('cipher_full'))
+        else:
+            return "Złe hasło.", 403
+    return render_template('cipher_final_result.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))

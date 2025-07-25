@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Odpowiedzi</title>
+    <style>
+		.logo {  
+			display: block;
+			margin: 0 auto;
+			width: 150px;  
+			height: auto;  
+		}
+        table {
+            width: 60%;
+            margin: 2rem auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 2rem;
+        }
+		.winner-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .winner-card h2 {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='images/logo_w.png') }}" alt="Logo" class="logo">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Odpowiedź</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in cipher %}
+            <tr>
+                <td>{{ row['id'] }}</td>
+                <td>{{ row['name'] }}</td>
+                <td>{{ row['guess'] }}</td>
+                <td>{{ row['created_at'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>	
+</body>
+</html>
