@@ -35,6 +35,14 @@ def init_db():
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         ''')
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS cipher (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                guess INTEGER NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
         conn.commit()
 
 def reset_db():
@@ -42,7 +50,7 @@ def reset_db():
     Reset the database by deleting the existing file and reinitializing it.
     """
     if os.path.exists(DATABASE):
-        os.remove(DATABASE)
+        conn.execute('''DROP TABLE IF EXISTS guesses''')
     init_db()
 
 # Initialize the database when the app starts
@@ -207,6 +215,29 @@ def delete():
 def reset_db_route():
     reset_db()  # Call your existing internal reset function here
     return redirect(url_for('show_full'))
+
+@app.route('/cipher')
+def cipher():
+    return render_template('cipher.html')
+
+
+@app.route('/cipher_submit', methods=['POST'])
+def cipher_submit():
+    """
+    Handle guess submission and validate the input.
+    """
+    name = request.form.get('name')
+    guess = request.form.get('guess')
+
+    # Save the data to the database
+    with sqlite3.connect(DATABASE) as conn:
+        conn.execute('INSERT INTO cipher (name, guess) VALUES (?, ?)', (name, guess))
+        conn.commit()
+        logging.info(f"New guess recorded: {name} - {guess}")
+
+    return render_template('cipher_thank_you.html')
+
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
