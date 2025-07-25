@@ -50,8 +50,9 @@ def reset_db():
     Reset the database by deleting the existing file and reinitializing it.
     """
     if os.path.exists(DATABASE):
-        conn.execute('''DROP TABLE IF EXISTS guesses''')
-        conn.commit()
+        with sqlite3.connect(DATABASE) as conn:
+            conn.execute('''DROP TABLE IF EXISTS guesses''')
+            conn.commit()
     init_db()
     
 
