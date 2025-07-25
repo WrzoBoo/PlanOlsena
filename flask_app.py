@@ -51,7 +51,9 @@ def reset_db():
     """
     if os.path.exists(DATABASE):
         conn.execute('''DROP TABLE IF EXISTS guesses''')
+        conn.commit()
     init_db()
+    
 
 # Initialize the database when the app starts
 init_db()
